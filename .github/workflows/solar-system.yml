@@ -82,7 +82,9 @@ jobs:
             registry: ghcr.io
             username: UsamaAhmad577
             password: ${{secrets.GHCR_PAT}}
-
+        - name: Lowercase Repository Name
+          run: |
+            echo "REPO_NAME=${GITHUB_REPOSITORY,,}" >> ${GITHUB_ENV}
         - name: Build and push Docker image
           uses: docker/build-push-action@v5
           with:

@@ -96,7 +96,7 @@ jobs:
     
     
     
-    dev deploy:
+    dev-deploy:
       name: development deployment
       runs-on: ubuntu-latest
       needs:  docker

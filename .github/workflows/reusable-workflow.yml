@@ -9,11 +9,17 @@ on:
         type: string
 
 jobs:
-  integration-test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run Integration Test
-        env:
-          URL: '${{ inputs.ingress-url }}'
+
+    integration-test:
+        runs-on: ubuntu-latest
+        steps:
+         - name: Run Integration Test
+           env:
+           URL: '${{ inputs.ingress-url }}'
         run: |
           curl https://$URL/live -s -k | jq -r .status | grep -i live
+    integration-testing:
+      needs: dev-deploy
+      uses: ./.github/workflows/reusable-workflow.yml
+      with:
+        ingress-url: ${{ needs.dev-deploy.outputs.APP_INGRESS_URL }}
